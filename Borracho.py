@@ -4,13 +4,13 @@ import numpy as np
 from tabulate import tabulate
 
 #variables
-texitos = 0
+texitos = 0 #Almacena el total de exitos
 #variables de la grafica
 fig, ax = plt.subplots()
-
 aux = 0 #valor auxiliar para calcular el numero de iteraciones
 #pedir valores por consola 
-n = int(input("¿Cuantas veces quieres hacer la simulación?"))
+n = int(input("¿Cuantas veces quieres hacer la simulación? "))
+
 
 for i in range(n):
     #variables para la tabla
@@ -23,8 +23,8 @@ for i in range(n):
     #variables de la grafica
     xl = [0]
     yl = [0]
-    ax.plot([-4,4],[0,0], c='black')#plano
-    ax.plot([0,0],[-4,4], c='black')#cartesiano
+    ax.plot([-5,5],[0,0], c='black')#plano
+    ax.plot([0,0],[-5,5], c='black')#cartesiano
 
     x = 0
     y = 0
@@ -55,13 +55,16 @@ for i in range(n):
         else:
             x = x-1
             valoresxy.append(f"({x},{y})")
-
         #agregar los valores de x y y a una lista
         xl.append(x)
         yl.append(y)
         #velocidad de generado de la grafica
-        plt.pause(0.04)
+        plt.pause(0.01)
     
+    ax.step(xl,yl,"r")
+    ax.step(xl,yl,"ro")
+    a = ax.step(x,y,"bo")
+    plt.pause(0.01)
     vexito = abs(x) + abs(y)
     #Calcular el exito
     if(vexito >= 2):
@@ -77,6 +80,7 @@ for i in range(n):
         tabla = tabla + [[iteraciones_n[k], iteraciones[k], num_ale_gen[k], valoresxy[k], exito[k]]]
     #Imprimir tabla 
     print(tabulate(tabla, headers=["N", "# de cuadras\n recorridas", "numero aleatorio", "localización\n(x,y)","exito?"]))
+    print()
     #limpiar grafica en cada iteración
     if (i != n-1):
         ax.clear()
